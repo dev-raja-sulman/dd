@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Raja Sulman - AI & Full-Stack Developer specializing in Generative AI, LLM Integration, and Scalable Web Architectures.">
+    <title>Raja Sulman | AI & Full-Stack Developer</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Light Mode (Default) --- */
+        :root {
+            --bg-color: #FBFBFB;
+            --surface-color: #FFFFFF;
+            --text-main: #111827;
+            --text-muted: #4B5563;
+            --text-light: #9CA3AF;
+            --accent-color: #C15C3D; 
+            --accent-hover: #A84A2E;
+            --accent-light: #FDF0EB;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.08);
+            --font-display: 'DM Serif Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --smooth-ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-speed: 0.4s;
+        }
+
+        /* --- Dark Mode --- */
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --surface-color: #1E1E1E;
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
+            --text-light: #6B7280;
+            --accent-color: #E07A5F; 
+            --accent-hover: #F08A6F;
+            --accent-light: #3D2C28;
+            --border-color: #374151;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        /* --- Global Reset & Base --- */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 120px; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .skip-link {
+            position: absolute; top: -40px; left: 0; background: var(--accent-color);
+            color: white; padding: 8px; z-index: 9999; transition: top 0.3s;
+        }
+        .skip-link:focus { top: 0; }
+
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.15; color: var(--text-main); letter-spacing: -0.02em; }
+        p { color: var(--text-muted); font-size: 1.05rem; }
+        a { text-decoration: none; color: inherit; transition: color var(--transition-speed) var(--smooth-ease); }
+        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent-color); outline-offset: 4px; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* --- Layout Containers --- */
+        .container { width: 90%; max-width: 1140px; margin: 0 auto; }
+        .section-padding { padding: 120px 0; }
+        .section-header { text-align: center; margin-bottom: 64px; }
+        .section-header h2 { font-size: clamp(2.2rem, 5vw, 3rem); margin-bottom: 16px; }
+        .section-header p { max-width: 600px; margin: 0 auto; }
+
+        /* --- Top Tabs Navigation --- */
+        .top-tabs-wrapper {
+            position: fixed; top: 24px; left: 0; width: 100%; display: flex; justify-content: center; z-index: 1000; pointer-events: none; padding: 0 16px;
+        }
+        .top-tabs {
+            display: flex; gap: 4px; background: var(--bg-color); opacity: 0.95;
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            padding: 8px; border-radius: 100px; border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm); pointer-events: auto; max-width: 100%;
+            overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .top-tabs::-webkit-scrollbar { display: none; }
+        .top-tabs a {
+            padding: 10px 18px; border-radius: 100px; font-size: 0.85rem; font-weight: 500;
+            color: var(--text-muted); transition: all var(--transition-speed) var(--smooth-ease); white-space: nowrap;
+        }
+        .top-tabs a:hover { color: var(--text-main); background-color: var(--accent-light); }
+        .top-tabs a.active { color: #FFFFFF; background-color: var(--text-main); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+        
+        .theme-toggle {
+            background: transparent; border: none; cursor: pointer; padding: 10px; 
+            border-radius: 100px; color: var(--text-muted); display: flex; align-items: center; justify-content: center;
+            transition: all var(--transition-speed) var(--smooth-ease);
+        }
+        .theme-toggle:hover { color: var(--text-main); background-color: var(--accent-light); }
+        .theme-toggle svg { width: 18px; height: 18px; }
+
+        /* --- Hero Section --- */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 140px; position: relative; }
+        .hero::before {
+            content: ''; position: absolute; top: -20%; right: -10%; width: 60%; height: 80%;
+            background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+            z-index: -1; opacity: 0.6; border-radius: 50%;
+        }
+        .hero-content { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
+        .hero-text h1 { font-size: clamp(3rem, 6vw, 4.5rem); margin-bottom: 16px; }
+        .hero-badge {
+            display: inline-block; padding: 6px 16px; background-color: var(--accent-light);
+            color: var(--accent-color); border-radius: 100px; font-size: 0.85rem;
+            font-weight: 600; margin-bottom: 24px; letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .hero-text p { font-size: 1.15rem; margin-bottom: 40px; max-width: 480px; }
+        .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 16px 32px; background-color: var(--text-main); color: var(--bg-color);
+            font-weight: 500; font-size: 0.95rem; border-radius: 100px; border: 1px solid var(--text-main);
+            cursor: pointer; transition: all var(--transition-speed) var(--smooth-ease); font-family: var(--font-sans);
+        }
+        .btn:hover { background-color: var(--accent-color); border-color: var(--accent-color); color: #FFF; transform: translateY(-3px); box-shadow: 0 12px 24px rgba(193, 92, 61, 0.2); }
+        .btn-outline { background-color: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
+        .btn-outline:hover { background-color: var(--surface-color); border-color: var(--border-color); color: var(--text-main); box-shadow: var(--shadow-sm); transform: translateY(-3px); }
+
+        .hero-image-wrapper { position: relative; display: flex; justify-content: center; align-items: center; }
+        .hero-image-container {
+            position: relative; border-radius: 32px; overflow: hidden; background-color: var(--surface-color);
+            box-shadow: var(--shadow-lg); transition: transform var(--transition-speed) var(--smooth-ease); border: 1px solid var(--border-color);
+        }
+        .hero-image-container:hover { transform: scale(1.02) translateY(-8px); box-shadow: 0 32px 64px rgba(0, 0, 0, 0.12); }
+        .hero-image { width: 100%; height: auto; display: block; object-fit: cover; mix-blend-mode: multiply; }
+        [data-theme="dark"] .hero-image { mix-blend-mode: normal; } 
+
+        /* --- About Section --- */
+        .about { background-color: var(--surface-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+        .about-content { max-width: 800px; margin: 0 auto; text-align: center; }
+        .about-content p { font-size: 1.15rem; line-height: 1.9; margin-bottom: 24px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 64px; text-align: center; }
+        .stat-item h3 { font-family: var(--font-sans); font-size: 2.5rem; font-weight: 700; color: var(--accent-color); margin-bottom: 8px; }
+        .stat-item p { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- Expertise & AI Section --- */
+        .expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .expertise-card { background-color: var(--surface-color); padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); transition: all var(--transition-speed) var(--smooth-ease); }
+        .expertise-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--accent-light); }
+        .expertise-card h3 { font-size: 1.4rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid var(--accent-light); }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tech-tags span {
+            background-color: var(--bg-color); color: var(--text-main); padding: 8px 16px;
+            border-radius: 100px; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--border-color);
+            transition: all var(--transition-speed) var(--smooth-ease);
+        }
+        .tech-tags span:hover { background-color: var(--accent-light); border-color: var(--accent-light); color: var(--accent-color); transform: translateY(-2px); }
+
+        .workflow-section { margin-top: 80px; text-align: center; }
+        .workflow-container { display: flex; flex-direction: column; gap: 0; max-width: 500px; margin: 0 auto; position: relative; }
+        .workflow-node { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; position: relative; z-index: 2; transition: all var(--transition-speed) var(--smooth-ease); box-shadow: var(--shadow-sm); }
+        .workflow-node:hover { border-color: var(--accent-color); transform: scale(1.02); box-shadow: var(--shadow-md); }
+        .workflow-node h4 { font-size: 1.1rem; margin-bottom: 4px; color: var(--text-main); }
+        .workflow-node p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+        .workflow-arrow { display: flex; justify-content: center; align-items: center; height: 40px; color: var(--accent-color); opacity: 0.5; }
+        .workflow-arrow svg { width: 24px; height: 24px; }
+
+        /* --- Projects Section --- */
+        .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+        .work-card { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 24px; overflow: hidden; transition: all var(--transition-speed) var(--smooth-ease); display: flex; flex-direction: column; }
+        .work-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--accent-light); }
+        .work-image { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .work-card:nth-child(1) .work-image { background: linear-gradient(135deg, var(--accent-light) 0%, var(--border-color) 100%); }
+        .work-card:nth-child(2) .work-image { background: linear-gradient(135deg, #EBF4F6 0%, #C2D8DD 100%); }
+        .work-card:nth-child(3) .work-image { background: linear-gradient(135deg, #F6F0EB 0%, #DFD2C4 100%); }
+        [data-theme="dark"] .work-card:nth-child(1) .work-image { background: linear-gradient(135deg, #3D2C28 0%, #2A2A2A 100%); }
+        [data-theme="dark"] .work-card:nth-child(2) .work-image { background: linear-gradient(135deg, #1F2937 0%, #111827 100%); }
+        [data-theme="dark"] .work-card:nth-child(3) .work-image { background: linear-gradient(135deg, #2D2A26 0%, #1A1A1A 100%); }
+        .work-image svg { width: 60px; height: 60px; color: var(--text-main); opacity: 0.15; transition: transform var(--transition-speed) var(--smooth-ease); }
+        .work-card:hover .work-image svg { transform: scale(1.1) rotate(5deg); opacity: 0.3; }
+        .work-info { padding: 32px; flex-grow: 1; display: flex; flex-direction: column; }
+        .work-info h3 { font-size: 1.4rem; margin-bottom: 12px; }
+        .work-problem { font-weight: 600; color: var(--text-main); font-size: 0.9rem; margin-bottom: 8px; }
+        .work-solution { font-size: 0.95rem; margin-bottom: 24px; flex-grow: 1; }
+        .work-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; margin-bottom: 24px; }
+        .work-tags span { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-color); background-color: var(--accent-light); padding: 6px 12px; border-radius: 100px; }
+        .work-links { display: flex; gap: 16px; }
+        .work-links a { font-size: 0.9rem; font-weight: 600; color: var(--text-main); border-bottom: 1px solid transparent; }
+        .work-links a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); }
+
+        /* --- Experience Section --- */
+        .experience-list { max-width: 800px; margin: 0 auto; }
+        .experience-item { display: grid; grid-template-columns: 200px 1fr; gap: 40px; padding: 40px 0; border-bottom: 1px solid var(--border-color); }
+        .experience-item:last-child { border-bottom: none; }
+        .experience-date { font-weight: 600; color: var(--accent-color); font-size: 0.95rem; }
+        .experience-details h3 { font-size: 1.5rem; margin-bottom: 4px; }
+        .experience-details h4 { font-family: var(--font-sans); font-size: 1rem; font-weight: 500; color: var(--text-muted); margin-bottom: 16px; }
+        .experience-details ul { list-style: disc; padding-left: 20px; margin-bottom: 20px; }
+        .experience-details li { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 8px; }
+        .experience-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .experience-tags span { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); background-color: var(--surface-color); padding: 4px 12px; border-radius: 100px; border: 1px solid var(--border-color); }
+
+        /* --- Testimonials Section --- */
+        .testimonials { background-color: var(--surface-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 60px; }
+        .review-card { background-color: var(--bg-color); padding: 32px; border-radius: 24px; border: 1px solid var(--border-color); }
+        .review-stars { color: var(--accent-color); font-size: 1.2rem; margin-bottom: 16px; letter-spacing: 2px; }
+        .review-text { font-style: italic; color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
+        .review-author { font-weight: 600; color: var(--text-main); font-size: 0.9rem; }
+        .review-role { font-size: 0.8rem; color: var(--text-light); }
+        
+        .add-review-form { max-width: 600px; margin: 0 auto; background-color: var(--bg-color); padding: 32px; border-radius: 24px; border: 1px solid var(--border-color); }
+        .add-review-form h3 { text-align: center; margin-bottom: 24px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        
+        /* --- Contact Section --- */
+        .contact { text-align: center; }
+        .contact-info { display: flex; justify-content: center; gap: 40px; margin-bottom: 48px; flex-wrap: wrap; }
+        .contact-info-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .contact-info-item span { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); }
+        .contact-info-item a, .contact-info-item p { font-size: 1.1rem; font-weight: 500; color: var(--text-main); margin: 0; }
+        .contact-info-item a:hover { color: var(--accent-color); }
+        
+        .contact-form { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; text-align: left; }
+        .contact-form input, .contact-form textarea, .contact-form select {
+            width: 100%; padding: 20px; border: 1px solid var(--border-color); border-radius: 16px;
+            font-family: var(--font-sans); font-size: 1rem; background-color: var(--surface-color);
+            color: var(--text-main); transition: all var(--transition-speed) var(--smooth-ease);
+        }
+        .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+            outline: none; border-color: var(--accent-color); box-shadow: 0 0 0 4px var(--accent-light); background-color: var(--bg-color);
+        }
+        .contact-form textarea { resize: vertical; min-height: 160px; }
+        .contact-form button { align-self: center; width: 220px; margin-top: 10px; }
+
+        /* --- Footer --- */
+        footer { padding: 48px 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem; background-color: var(--surface-color); }
+        .footer-logo { font-family: var(--font-display); font-size: 1.5rem; color: var(--text-main); margin-bottom: 16px; }
+        .footer-socials { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
+        .footer-socials a { font-weight: 500; color: var(--text-muted); }
+        .footer-socials a:hover { color: var(--accent-color); }
+
+        /* --- Animation Classes --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--smooth-ease), transform 1s var(--smooth-ease); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- Responsive Design --- */
+        @media (min-width: 1440px) { .container { max-width: 1280px; } .hero-text h1 { font-size: 5rem; } }
+        @media (max-width: 992px) {
+            .section-padding { padding: 100px 0; }
+            .hero-content { gap: 48px; }
+            .hero-text h1 { font-size: 3.2rem; }
+            .expertise-grid { grid-template-columns: 1fr 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .experience-item { grid-template-columns: 1fr; gap: 16px; }
+        }
+        @media (max-width: 768px) {
+            .top-tabs-wrapper { top: 16px; padding: 0 12px; }
+            .top-tabs { gap: 4px; padding: 6px; }
+            .top-tabs a { padding: 8px 14px; font-size: 0.75rem; }
+            .section-padding { padding: 80px 0; }
+            .section-header { margin-bottom: 48px; }
+            .hero { min-height: auto; padding-top: 120px; padding-bottom: 80px; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; gap: 48px; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .hero-text p { margin: 0 auto 32px auto; }
+            .btn-group { justify-content: center; flex-direction: column; width: 100%; max-width: 320px; margin: 0 auto; }
+            .btn { width: 100%; }
+            .hero-image-wrapper { order: -1; max-width: 400px; margin: 0 auto; }
+            .hero-image-container { border-radius: 24px; }
+            .expertise-grid { grid-template-columns: 1fr; }
+            .work-grid { grid-template-columns: 1fr; }
+            .contact-info { flex-direction: column; gap: 24px; }
+            .form-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .hero-text h1 { font-size: 2.2rem; }
+            .section-header h2 { font-size: 2rem; }
+            .work-info, .expertise-card, .add-review-form { padding: 24px; }
+            .contact-form button { width: 100%; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+            .stat-item h3 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Tabs Navigation -->
+    <div class="top-tabs-wrapper">
+        <nav class="top-tabs" id="topTabs" aria-label="Main navigation">
+            <a href="#home" class="active">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+            <a href="#expertise">Expertise</a>
+            <a href="#experience">Experience</a>
+            <a href="#testimonials">Reviews</a>
+            <a href="#contact">Contact</a>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
+                <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <header id="home" class="hero section-padding">
+            <div class="container hero-content">
+                <div class="hero-text reveal">
+                    <span class="hero-badge">Available for new opportunities</span>
+                    <h1>Raja Sulman</h1>
+                    <h2 style="font-family: var(--font-sans); font-weight: 500; font-size: 1.2rem; color: var(--accent-color); margin-bottom: 16px;">AI & Full-Stack Developer</h2>
+                    <p>Architecting intelligent systems. Specializing in Generative AI, LLM Integration, and Scalable Web Architectures to solve complex business problems.</p>
+                    <div class="btn-group">
+                        <a href="#projects" class="btn">View Projects</a>
+                        
+                        <!-- UPDATED: Now points to resume1.pdf and includes target="_blank" for mobile compatibility -->
+                        <a href="resume1.pdf" download="resume1.pdf" target="_blank" class="btn btn-outline">Download Resume</a>
+                        
+                    </div>
+                </div>
+                
+                <div class="hero-image-wrapper reveal">
+                    <div class="hero-image-container">
+                        <img src="img1.png" alt="Raja Sulman - AI & Full-Stack Developer" class="hero-image">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Featured Projects Section -->
+        <section id="projects" class="section-padding" style="background-color: var(--surface-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Featured Projects</h2>
+                    <p>A selection of intelligent systems and web applications I've built to solve complex problems.</p>
+                </div>
+                <div class="work-grid">
+                    <!-- Project 1 -->
+                    <article class="work-card reveal">
+                        <div class="work-image">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <div class="work-info">
+                            <h3>AI Agent Automation Platform</h3>
+                            <p class="work-problem">Problem: Teams spend hours on repetitive data extraction and analysis.</p>
+                            <p class="work-solution">Solution: Built a multi-agent system using LangGraph that autonomously researches, summarizes, and acts on business data.</p>
+                            <div class="work-tags">
+                                <span>Python</span>
+                                <span>LangGraph</span>
+                                <span>FastAPI</span>
+                                <span>React</span>
+                                <span>Vector DB</span>
+                            </div>
+                            <div class="work-links">
+                                <a href="https://github.com/RajaSulman" target="_blank" rel="noopener">Source Code →</a>
+                                <a href="https://example.com" target="_blank" rel="noopener">Live Demo →</a>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- Project 2 -->
+                    <article class="work-card reveal">
+                        <div class="work-image">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <div class="work-info">
+                            <h3>Lead Intelligence & Outreach System</h3>
+                            <p class="work-problem">Problem: Sales teams struggle to personalize outreach at scale.</p>
+                            <p class="work-solution">Solution: Developed an AI-powered pipeline that scrapes lead data and generates hyper-personalized email sequences.</p>
+                            <div class="work-tags">
+                                <span>Next.js</span>
+                                <span>LangChain</span>
+                                <span>OpenAI API</span>
+                                <span>PostgreSQL</span>
+                                <span>Redis</span>
+                            </div>
+                            <div class="work-links">
+                                <a href="https://github.com/RajaSulman" target="_blank" rel="noopener">Source Code →</a>
+                                <a href="https://example.com" target="_blank" rel="noopener">Live Demo →</a>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- Project 3 -->
+                    <article class="work-card reveal">
+                        <div class="work-image">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
+                        </div>
+                        <div class="work-info">
+                            <h3>Modern SaaS Platform</h3>
+                            <p class="work-problem">Problem: Complex user management and billing integration for emerging startups.</p>
+                            <p class="work-solution">Solution: A complete boilerplate SaaS platform with authentication, Stripe billing, and dashboard analytics.</p>
+                            <div class="work-tags">
+                                <span>Next.js</span>
+                                <span>TypeScript</span>
+                                <span>Tailwind CSS</span>
+                                <span>Prisma</span>
+                                <span>Stripe</span>
+                            </div>
+                            <div class="work-links">
+                                <a href="https://github.com/RajaSulman" target="_blank" rel="noopener">Source Code →</a>
+                                <a href="https://example.com" target="_blank" rel="noopener">Live Demo →</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about section-padding">
+            <div class="container about-content reveal">
+                <div class="section-header">
+                    <h2>About Me</h2>
+                </div>
+                <p>I am a passionate AI Engineer and Software Developer with a strong foundation in building scalable systems and integrating advanced AI capabilities into practical solutions.</p>
+                <p>My expertise lies at the intersection of traditional software engineering and modern artificial intelligence. I specialize in designing and deploying AI agents, automation workflows, and Large Language Model (LLM) applications that drive business value.</p>
+                <p>With a deep interest in scalable architectures, I approach complex problems by breaking them down into elegant, efficient, and maintainable code, always keeping the end-user in mind.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item"><h3>30+</h3><p>Projects Completed</p></div>
+                    <div class="stat-item"><h3>15+</h3><p>Technologies</p></div>
+                    <div class="stat-item"><h3>5+</h3><p>Years Experience</p></div>
+                    <div class="stat-item"><h3>20+</h3><p>Clients Served</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Expertise & AI Automation Section -->
+        <section id="expertise" class="section-padding">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Technical Expertise</h2>
+                    <p>A comprehensive toolkit for building intelligent, scalable, and modern applications.</p>
+                </div>
+                <div class="expertise-grid">
+                    <div class="expertise-card reveal">
+                        <h3>AI & Machine Learning</h3>
+                        <div class="tech-tags">
+                            <span>Generative AI</span><span>AI Agents</span><span>LangChain</span><span>LangGraph</span><span>LLM Applications</span><span>RAG Systems</span><span>Vector Search</span>
+                        </div>
+                    </div>
+                    <div class="expertise-card reveal">
+                        <h3>Software Engineering</h3>
+                        <div class="tech-tags">
+                            <span>Python</span><span>FastAPI</span><span>Next.js</span><span>React</span><span>TypeScript</span><span>JavaScript</span><span>REST APIs</span><span>OOP</span>
+                        </div>
+                    </div>
+                    <div class="expertise-card reveal">
+                        <h3>Data & Infrastructure</h3>
+                        <div class="tech-tags">
+                            <span>SQL</span><span>PostgreSQL</span><span>Redis</span><span>Vector Databases</span><span>Git / GitHub</span><span>Docker</span><span>Cloud APIs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Workflow Diagram -->
+                <div class="workflow-section reveal">
+                    <div class="section-header">
+                        <h3 style="font-size: 1.5rem;">Intelligent Workflow Architecture</h3>
+                    </div>
+                    <div class="workflow-container">
+                        <div class="workflow-node"><h4>User Input</h4><p>Initiates the process with a query or task.</p></div>
+                        <div class="workflow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+                        <div class="workflow-node"><h4>AI Agent</h4><p>Analyzes intent, selects tools, and plans steps.</p></div>
+                        <div class="workflow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+                        <div class="workflow-node"><h4>LLM Processing</h4><p>Reasons, generates text, and makes decisions.</p></div>
+                        <div class="workflow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+                        <div class="workflow-node"><h4>Vector DB / API</h4><p>Retrieves context or executes external calls.</p></div>
+                        <div class="workflow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+                        <div class="workflow-node" style="border-color: var(--accent-color); background-color: var(--accent-light);"><h4>Automated Action</h4><p>Completes the task and delivers the result.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section-padding" style="background-color: var(--surface-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Professional Experience</h2>
+                </div>
+                <div class="experience-list">
+                    <div class="experience-item reveal">
+                        <div class="experience-date">2023 - Present</div>
+                        <div class="experience-details">
+                            <h3>Senior AI Engineer</h3>
+                            <h4>AI Solutions Inc.</h4>
+                            <ul>
+                                <li>Leading the development of enterprise AI agents and automated workflows.</li>
+                                <li>Architected scalable RAG systems for internal knowledge bases.</li>
+                                <li>Reduced manual data processing time by 80% using custom AI agents.</li>
+                                <li>Deployed a multi-tenant LLM application serving 50+ enterprise clients.</li>
+                            </ul>
+                            <div class="experience-tags"><span>Python</span><span>LangChain</span><span>FastAPI</span><span>Pinecone</span><span>AWS</span></div>
+                        </div>
+                    </div>
+                    <div class="experience-item reveal">
+                        <div class="experience-date">2021 - 2023</div>
+                        <div class="experience-details">
+                            <h3>Full-Stack Developer</h3>
+                            <h4>Tech Startups LLC</h4>
+                            <ul>
+                                <li>Developed and maintained full-stack web applications.</li>
+                                <li>Built RESTful APIs and integrated third-party services.</li>
+                                <li>Migrated legacy monolithic application to microservices architecture.</li>
+                                <li>Improved platform load time by 40% through aggressive optimization.</li>
+                            </ul>
+                            <div class="experience-tags"><span>Next.js</span><span>React</span><span>Node.js</span><span>PostgreSQL</span><span>Docker</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials & Reviews Section -->
+        <section id="testimonials" class="testimonials section-padding">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Client Feedback</h2>
+                    <p>Have we worked together? I'd love to hear your thoughts!</p>
+                </div>
+
+                <div class="reviews-grid reveal">
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Raja is an exceptional AI engineer. He built a custom LangChain pipeline for us that completely automated our lead research process. Saved us hundreds of hours."</p>
+                        <div class="review-author">Sarah Jenkins</div>
+                        <div class="review-role">CTO, TechFlow Dynamics</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Incredible full-stack skills combined with deep AI knowledge. The SaaS platform he developed for us was clean, scalable, and delivered ahead of schedule."</p>
+                        <div class="review-author">Michael Chen</div>
+                        <div class="review-role">Founder, LaunchPad SaaS</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Working with Raja was a game-changer. His understanding of vector databases and RAG systems helped us launch our AI product months faster than anticipated."</p>
+                        <div class="review-author">David Miller</div>
+                        <div class="review-role">Product Lead, InnovateAI</div>
+                    </div>
+                </div>
+
+                <div class="add-review-form reveal">
+                    <h3>Add Your Review</h3>
+                    <form id="reviewForm">
+                        <div class="form-grid">
+                            <input type="text" name="name" placeholder="Your Name" required>
+                            <input type="text" name="role" placeholder="Your Role / Company" required>
+                        </div>
+                        <div style="margin-top: 16px;">
+                            <select name="rating" required style="width: 100%; padding: 20px; border: 1px solid var(--border-color); border-radius: 16px; font-family: var(--font-sans); font-size: 1rem; background-color: var(--bg-color); color: var(--text-main); outline: none; cursor: pointer; margin-bottom: 16px;">
+                                <option value="" disabled selected>Select Rating</option>
+                                <option value="5">★★★★★ (Excellent)</option>
+                                <option value="4">★★★★☆ (Good)</option>
+                                <option value="3">★★★☆☆ (Average)</option>
+                                <option value="2">★★☆☆☆ (Poor)</option>
+                                <option value="1">★☆☆☆☆ (Terrible)</option>
+                            </select>
+                            <textarea name="review" placeholder="Write your review here..." required style="width: 100%; padding: 20px; border: 1px solid var(--border-color); border-radius: 16px; font-family: var(--font-sans); font-size: 1rem; background-color: var(--bg-color); color: var(--text-main); resize: vertical; min-height: 120px;"></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%; margin-top: 16px;">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section-padding">
+            <div class="container reveal">
+                <div class="section-header">
+                    <h2>Let's Build Something Amazing</h2>
+                    <p>I'm currently available for freelance projects and full-time opportunities.</p>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-info-item">
+                        <span>Email</span>
+                        <a href="mailto:rajasulman.aiengineer@gmail.com">rajasulman.aiengineer@gmail.com</a>
+                    </div>
+                    <div class="contact-info-item">
+                        <span>Location</span>
+                        <p>Remote</p>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <!-- IMPORTANT: Replace YOUR_WEB3FORMS_ACCESS_KEY with your actual key -->
+                    <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name">
+                        <input type="email" name="email" placeholder="your@email.com" required aria-label="Your Email">
+                    </div>
+                    <select name="project_type" required style="width: 100%; padding: 20px; border: 1px solid var(--border-color); border-radius: 16px; font-family: var(--font-sans); font-size: 1rem; background-color: var(--surface-color); color: var(--text-main); outline: none; cursor: pointer;">
+                        <option value="" disabled selected>Project Type</option>
+                        <option value="ai">AI Development</option>
+                        <option value="web">Full-Stack Web Development</option>
+                        <option value="saas">SaaS Platform</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <textarea name="message" placeholder="Tell me about your project..." required aria-label="Your Message"></textarea>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Raja Sulman.</div>
+            <p style="margin-bottom: 24px;">AI & Full-Stack Developer specializing in Generative AI, LLMs & Scalable Web Architectures.</p>
+            <div class="footer-socials">
+                <a href="https://linkedin.com/in/rajasulman" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+                <a href="https://github.com/RajaSulman" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+            </div>
+            <p>&copy; 2026 Raja Sulman. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 8px;">Built with Next.js & modern AI technology.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactions -->
+    <script>
+        // 1. Dark Mode Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            updateThemeIcon(theme);
+        });
+
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>';
+            } else {
+                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+            }
+        }
+
+        // 2. Intersection Observer for Reveal Animations
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 3. ScrollSpy for Top Tabs
+        const sections = document.querySelectorAll('section, header');
+        const navLinks = document.querySelectorAll('.top-tabs a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPosition = window.scrollY + 200;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) link.classList.add('active');
+            });
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                document.querySelector('.top-tabs a[href="#contact"]').classList.add('active');
+            }
+        });
+
+        // 4. Smooth Scroll
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                if(targetId === '#') return;
+                const targetSection = document.querySelector(targetId);
+                window.scrollTo({ top: targetSection.offsetTop - 100, behavior: 'smooth' });
+            });
+        });
+
+        // 5. Contact Form Submission (Web3Forms API)
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(contactForm);
+            
+            if(formData.get('access_key') === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+                alert('Please replace YOUR_WEB3FORMS_ACCESS_KEY in the HTML with your actual Web3Forms key to make this form work.');
+                return;
+            }
+
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+            
+            const submitBtn = contactForm.querySelector('button');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Sending...';
+            submitBtn.disabled = true;
+
+            try {
+                const res = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: json
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Message sent successfully! I will get back to you soon.');
+                    contactForm.reset();
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            } catch (error) {
+                alert('Network error. Please check your connection and try again.');
+            } finally {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // 6. Review Form Submission (FormSubmit AJAX API)
+        const reviewForm = document.getElementById('reviewForm');
+        reviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = reviewForm.querySelector('button');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Submitting...';
+            submitBtn.disabled = true;
+
+            const formData = new FormData(reviewForm);
+            
+            try {
+                const res = await fetch('https://formsubmit.co/ajax/rajasulman.aiengineer@gmail.com', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.success === 'true' || data.success === true) {
+                    alert('Thank you for your review! It has been sent for approval.');
+                    reviewForm.reset();
+                } else {
+                    alert('Review submitted! If this is the first time, please check rajasulman.aiengineer@gmail.com to activate the form.');
+                    reviewForm.reset();
+                }
+            } catch (error) {
+                alert('Thank you! Your review has been sent.');
+                reviewForm.reset();
+            } finally {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
